@@ -1,0 +1,92 @@
+<!-- views/partials-login/header.ejs -->
+ 
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="#">
+          <img src="https://www.zer4u.co.il/design/images/logo_app.png" height="30" >
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav" id="ulNavBar">
+          <li><a href="#">Home</a></li><!-- class = "active" -->
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="mySpan" onclick="javascript:$"><span class="glyphicon glyphicon-log-in" ></span> Login</a>
+            <!-- <buttontype="button" class="btn btn-default btn-lg" id="myBtn">Login</button>-->
+          
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+ 
+        <!-- Modal content-->
+       <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 style="color:red;"><span class="glyphicon glyphicon-lock"></span> Login</h4>
+          </div>
+          <div class="modal-body">
+            <form  id="login-form" role="form">
+              <div class="form-group">
+                <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+                <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+              </div>
+              <div class="form-group">
+                <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                <input type="text" class="form-control" id="psw" placeholder="Enter password">
+              </div>
+              <!-- <div class="checkbox">
+                <label><input type="checkbox" value="" checked>Remember me</label>
+              </div> -->
+              <button type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+              <script>
+                  $('#login-form').submit(function(){
+                    $.ajax({
+                      type: "POST",
+                      url: 'http://localhost:8070',
+                      body: 'data',
+                      data:{
+                        'username':$("#usrname").val(),
+                        'password': $("#psw").val()
+                      },
+                      success: function(data){},
+                      error: function(data)
+                      {
+                        alert("worng user name or password");
+                      }
+                    });
+                });
+                </script>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" style="background:red; color:white;" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            <p>Not a member? <a href="#">Sign Up</a></p>
+            <p>Forgot <a href="#">Password?</a></p>
+          </div>
+        </div>
+      </div>
+     
+    </div> 
+    <script>
+      $(document).ready(function(){
+          $("#mySpan").click(function(){
+              $("#myModal").modal();
+          });
+      }); 
+  
+      </script>
+  </li>
+        </ul>
+      </div>
+    </div>
+  </nav> 
+  
+  <!--  -->

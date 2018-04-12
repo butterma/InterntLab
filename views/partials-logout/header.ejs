@@ -1,0 +1,46 @@
+<!-- views/partials-logout/header.ejs -->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="#">
+          <img src="https://www.zer4u.co.il/design/images/logo_app.png" height="30" >
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/catalog">Catalog</a></li>
+          <li><a href="/users">Users Managment</a></li>
+          <li><a href="/branches">Branches Managment</a></li>        
+          <li><a href="/contact">Contact Us</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="mySpan" onclick="javascript:$"><span class="glyphicon glyphicon-log-in" ></span> Logout</a>
+            <!-- <buttontype="button" class="btn btn-default btn-lg" id="myBtn">Login</button>-->
+          </li>
+          <script>
+             $(document).ready(function(){
+                $("#mySpan").click(function(){
+                  if (window.confirm("Do you really want to leave?")) { 
+                      $.ajax({
+                      type: "POST",
+                      url: 'http://localhost:8070/branches',
+                      body:'data',
+                      data: {'login': '0'},
+                      success: function(data){
+                        location.reload();
+                       } ,              
+                      });
+                  }
+          });
+      }); 
+          </script>
+          </div>
+  </nav>
+  

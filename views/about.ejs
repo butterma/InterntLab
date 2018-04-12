@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- views/about.ejs -->
+<html lang="en">
+<head>
+    <% include partials-login/head %>
+    <style>
+        p{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 15px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body class="container">
+    <header>
+            <% if(!login){%>
+                <% include partials-login/header %>          
+            <%} else{ %>
+                <%include partials-logout/header %>           
+                <%}%>
+    </header>
+    <main>
+        <div class="row">
+           <p>   The Zer4U Chain includes approximately 30 active branches – shops selling flowers and gifts under national deployment.
+                 
+           </br>The Chain provides solutions for flower deliveries to other countries and acts toward the high quality of the products it offers in its website and branches.  We, in Zer4U, greatly emphasize the high quality of our flowers, plants, ornamental plants, flower bouquets, flower arrangements and gifts.
+
+        </br>For your convenience, please find the list of flower shops under national deployment. 
+                
+    </br>   Choose the branch closest to your place of residence and receive all the information about it – address, hours of operation, telephone, fax, services and location (transportation).
+                
+</br>       You can purchase through the website, save time and get a discount on the catalog
+                </p>
+        </div>
+    </main>
+    <footer>
+        <% include partials-login/footer %>
+    </footer>
+</body>
+</html>
