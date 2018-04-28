@@ -1,8 +1,8 @@
 const debug = require('debug')('mongo:mongo')
 const mongo = require("mongoose");
-let db = mongo.createConnection('mongodb+srv://Dafna:<Dafna972_>@yochidafna-zemea.mongodb.net/test');
+let db = mongo.createConnection('mongodb://Dafna:Dafna972_@yochidafna-shard-00-00-zemea.mongodb.net:27017,yochidafna-shard-00-01-zemea.mongodb.net:27017,yochidafna-shard-00-02-zemea.mongodb.net:27017/test?ssl=true&replicaSet=YochiDafna-shard-0&authSource=admin');
 db.on('open', function() { debug("On open DB") });
-db.on('error', function() {  debug("Error connecting to DB") });
+db.on('error', function(err) {  debug("Error connecting to DB" + err) });
 db.on('connecting', () => { debug('On connecting to MongoDB: '); });
 db.on('connected', () => { debug('On connected to MongoDB: '); })
 db.on('disconnecting', () => { debug('On disconnecting to MongoDB: '); });
@@ -25,4 +25,4 @@ db.then(async db1 => {
     debug('Closing');
     await close;
     debug('Closed');
-});
+}).catch(err => debug("Error" + err));
