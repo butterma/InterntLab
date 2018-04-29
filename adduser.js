@@ -1,6 +1,6 @@
 const User = require('./model')("User");
-const prompt = require('./prompt');
-const timeout = require('./timeout');
+const prompt = require('prompt');
+const timeout = require('timeout');
 (async () => {
     console.clear();
     await timeout(500);
