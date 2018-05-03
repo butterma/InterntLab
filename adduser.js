@@ -8,9 +8,9 @@ const timeout = require('timeout');
         let user = [];
         console.log();
         user[0] = await prompt("Please enter user's name: ");
-        user[1] = await prompt('Please enter username: ');
+        user[1] = await prompt("Please enter username: ");
         user[2] = await prompt('Please enter password: ');
-        let admin = await prompt('Please enter admin status: ');
+        let admin =  await prompt('Please enter admin status: ');
         user[3] = admin == 'Y' || admin == 'y';
         console.log(user);
         try {

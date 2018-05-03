@@ -23,22 +23,6 @@ module.exports = db =>
         });
     }
     
-    
-    db.model('User', schema); // if model name === collection name
-        debug("User model created");
-    // on every save, add the date
-    schema.pre('save', function(next) {
-        // get the current date
-        let currentDate = new Date();
-        // change the updated_at field to current date
-        this.updated_at = currentDate;
-        // if created_at doesn't exist, add to that field
-        if (!this.created_at)
-            this.created_at = currentDate;
-        next();
-    });
-    
-    
     schema.statics.REQUEST = async function() {
         // no arguments - bring all at once
         const args = Array.from(arguments);
@@ -79,4 +63,20 @@ module.exports = db =>
         debug(`request: without callback: ${JSON.stringify(args)}`);
         return this.find(...args).exec();
     }
+
+    db.model('User', schema); // if model name === collection name
+        debug("User model created");
+    // on every save, add the date
+    schema.pre('save', function(next) {
+        // get the current date
+        let currentDate = new Date();
+        // change the updated_at field to current date
+        this.updated_at = currentDate;
+        // if created_at doesn't exist, add to that field
+        if (!this.created_at)
+            this.created_at = currentDate;
+        next();
+    });
 }
+    
+    

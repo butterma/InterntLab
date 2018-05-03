@@ -1,6 +1,6 @@
 const debug = require("debug")("mongo:listusers");
 const User = require('./model')("User");
-const timeout = require("./timeout");
+const timeout = require("timeout");
 
 (async () => {
     // Inquire all the users at once and get it as an array
@@ -10,7 +10,7 @@ const timeout = require("./timeout");
         console.log(users);
     } catch (err) { debug(`Failed: ${err}`) }
 
-    await timeout(1000);
+    //await timeout(1000);
 
     // Inquire the users one-by-one and provide a callback to process each one
     try {
