@@ -4,22 +4,22 @@ const mongo = require("mongoose");
 module.exports = db =>
 {
     let schema = new mongo.Schema({
-        name: String,
+        //name: String,
         username: { type: String, required: true, unique: true, index: true },
         password: { type: String, required: true },
-        admin: Boolean,
-        location: String,
-        meta: { age: Number, website: String },
+        category: Number,
+        activate: Boolean,
+       // meta: { age: Number, website: String },
         created_at: Date,
         updated_at: Date
     }, { autoIndex: false });
     
     schema.statics.CREATE = async function(user) {
         return this.create({
-            name: user[0],
-            username: user[1],
-            password: user[2],
-            admin: user[3]
+            username: user[0],
+            password: user[1],
+            category: user[2],
+            activate: user[3]
         });
     }
     

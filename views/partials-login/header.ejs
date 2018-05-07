@@ -50,7 +50,7 @@
                   $('#login-form').submit(function(){
                     $.ajax({
                       type: "POST",
-                      url: 'http://localhost:8070',
+                      url: 'http://localhost:3000/login',
                       body: 'data',
                       data:{
                         'username':$("#usrname").val(),
