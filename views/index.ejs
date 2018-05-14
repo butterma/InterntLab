@@ -6,8 +6,11 @@
 </head>
 <body class="container">
     <header>  
-      <% include partials-login/header %>          
-               
+        <% if(login){%>
+            <% include partials-logout/header %>          
+        <%} else{ %>
+            <%include partials-login/header %>           
+            <%}%>                
     </header>
     <main>
        <img src="https://s-media-cache-ak0.pinimg.com/avatars/zer4u_1392295375_280.jpg"/>

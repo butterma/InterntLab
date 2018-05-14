@@ -40,14 +40,15 @@
               </div>
               <div class="form-group">
                 <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                <input type="text" class="form-control" id="psw" placeholder="Enter password">
+                <input type="password" class="form-control" id="psw" placeholder="Enter password">
               </div>
               <!-- <div class="checkbox">
                 <label><input type="checkbox" value="" checked>Remember me</label>
               </div> -->
               <button type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
               <script>
-                  $('#login-form').submit(function(){
+                  $('#login-form').submit(function(e){
+                    e.preventDefault();
                     $.ajax({
                       type: "POST",
                       url: 'http://localhost:3000/login',
@@ -56,10 +57,13 @@
                         'username':$("#usrname").val(),
                         'password': $("#psw").val()
                       },
-                      success: function(data){},
-                      error: function(data)
+                      success: function(data){
+                        location="/?login=true"
+                      },
+                      error: function(err, data)
                       {
-                        alert("worng user name or password");
+                        console.log(JSON.stringify(err) + ":" + JSON.stringify(data));
+                        alert("wrong user name or password");
                       }
                     });
                 });

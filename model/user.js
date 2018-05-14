@@ -1,4 +1,4 @@
-const debug = require("debug")("mongo:model-user");
+const debug = require("debug")("lab5:user-model");
 const mongo = require("mongoose");
 
 module.exports = db =>
