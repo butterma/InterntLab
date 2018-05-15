@@ -2,6 +2,8 @@ var express = require('express');
 var debug = require('debug')('ex5:index');
 var router = express.Router();
 const User = require('../model')("User");
+const Flower = require('../model')("Flower");
+const Branch = require('../model')("Branch");
 /* GET home page. */
 router.get('/', function(req, res, next) {
  if(req.query.login=="true")  
@@ -68,7 +70,7 @@ router.post('/signUp', async (req, res) => {
   res.redirect('/users');
 });
 
-router.post('/delete', async (req, res) => {
+router.post('/deleteUser', async (req, res) => {
   debug('delete user');
   if (req.body.username === undefined || req.body.username === null || req.body.username === "")
     debug("Missing user to delete!!!");

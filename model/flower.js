@@ -1,27 +1,23 @@
-const debug = require("debug")("ex5:user-model");
+const debug = require("debug")("ex5:flower-model");
 const mongo = require("mongoose");
 
 module.exports = db =>
 {
     let schema = new mongo.Schema({
-        //name: String,
-        username: { type: String, required: true, unique: true, index: true },
-        password: { type: String, required: true },
+        name: { type: String, required: true, unique: true, index: true },
+        color: { type: String, required: true },
         category: Number,
-        activate: Boolean,
-       // meta: { age: Number, website: String },
-        created_at: Date,
-        updated_at: Date
+        cost: Number
     }, 
     
     { autoIndex: false });
     
-    schema.statics.CREATE = async function(user) {
+    schema.statics.CREATE = async function(flower) {
         return this.create({
-            username: user[0],
-            password: user[1],
-            category: user[2],
-            activate: user[3]
+            name: flower[0],
+            color: flower[1],
+            category: flower[2],
+            cost: flower[3]
         });
     };
     
@@ -37,19 +33,19 @@ module.exports = db =>
         if (callback instanceof Function) {
             let asynch = callback.constructor.name === 'AsyncFunction';
             args.pop();
-            let cursor, user;
+            let cursor, flower;
             try {
                 cursor = await this.find(...args).cursor();
             } catch (err) { throw err; }
             try {
-                while (null !== (user = await cursor.next())) {
+                while (null !== (flower = await cursor.next())) {
                     if (asynch) {
                         try {
-                            await callback(user);
+                            await callback(flower);
                         } catch (err) { throw err; }
                     }
                     else {
-                        callback(user);
+                        callback(flower);
                     }
             }
         } 
@@ -66,33 +62,22 @@ module.exports = db =>
         return this.find(...args).exec();
     };
 
-    schema.statics.UPDATE = async function(user) {
+    schema.statics.UPDATE = async function(flower) {
         return this.updateOne({
-            username: user[0]
+            flowername: flower[0]
         });
     };
 
     
-    schema.statics.DELETE = async function(user) {
+    schema.statics.DELETE = async function(flower) {
         return this.deleteOne({
-            username: user[0],
-            password: user[1]
+            name: flower[0]
         });
     };
 
-    db.model('User', schema); // if model name === collection name
-        debug("User model created");
-    // on every save, add the date
-    schema.pre('save', function(next) {
-        // get the current date
-        let currentDate = new Date();
-        // change the updated_at field to current date
-        this.updated_at = currentDate;
-        // if created_at doesn't exist, add to that field
-        if (!this.created_at)
-            this.created_at = currentDate;
-        next();
-    });
+    db.model('Flower', schema); // if model name === collection name
+    debug("flower model created");
+    
 }
     
     

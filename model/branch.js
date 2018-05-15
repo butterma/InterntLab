@@ -1,27 +1,23 @@
-const debug = require("debug")("ex5:user-model");
+const debug = require("debug")("ex5:branch-model");
 const mongo = require("mongoose");
 
 module.exports = db =>
 {
     let schema = new mongo.Schema({
-        //name: String,
-        username: { type: String, required: true, unique: true, index: true },
-        password: { type: String, required: true },
-        category: Number,
-        activate: Boolean,
-       // meta: { age: Number, website: String },
-        created_at: Date,
-        updated_at: Date
+        name: { type: String, required: true, unique: true, index: true },
+        address: { type: String, required: true },
+        workers_amount: Number,
+        established_at: Date
     }, 
     
     { autoIndex: false });
     
-    schema.statics.CREATE = async function(user) {
+    schema.statics.CREATE = async function(branch) {
         return this.create({
-            username: user[0],
-            password: user[1],
-            category: user[2],
-            activate: user[3]
+            name: branch[0],
+            address: branch[1],
+            cateworkers_amountgory: branch[2],
+            established_at: branch[3]
         });
     };
     
@@ -37,19 +33,19 @@ module.exports = db =>
         if (callback instanceof Function) {
             let asynch = callback.constructor.name === 'AsyncFunction';
             args.pop();
-            let cursor, user;
+            let cursor, branch;
             try {
                 cursor = await this.find(...args).cursor();
             } catch (err) { throw err; }
             try {
-                while (null !== (user = await cursor.next())) {
+                while (null !== (branch = await cursor.next())) {
                     if (asynch) {
                         try {
-                            await callback(user);
+                            await callback(branch);
                         } catch (err) { throw err; }
                     }
                     else {
-                        callback(user);
+                        callback(branch);
                     }
             }
         } 
@@ -66,33 +62,24 @@ module.exports = db =>
         return this.find(...args).exec();
     };
 
-    schema.statics.UPDATE = async function(user) {
+    schema.statics.UPDATE = async function(branch) {
         return this.updateOne({
-            username: user[0]
+            name: branch[0],
+            address: branch[1],
+            cateworkers_amountgory: branch[2],
+            established_at: branch[3]
         });
     };
 
     
-    schema.statics.DELETE = async function(user) {
+    schema.statics.DELETE = async function(branch) {
         return this.deleteOne({
-            username: user[0],
-            password: user[1]
+            name: branch[0]
         });
     };
 
-    db.model('User', schema); // if model name === collection name
-        debug("User model created");
-    // on every save, add the date
-    schema.pre('save', function(next) {
-        // get the current date
-        let currentDate = new Date();
-        // change the updated_at field to current date
-        this.updated_at = currentDate;
-        // if created_at doesn't exist, add to that field
-        if (!this.created_at)
-            this.created_at = currentDate;
-        next();
-    });
+    db.model('Branch', schema); // if model name === collection name
+        debug("branch model created");    
 }
     
     

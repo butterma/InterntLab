@@ -25,11 +25,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/branches',branches);
+app.use('/createBranch',branches);
+app.use('/deleteBranch',branches);
+app.use('/updateBranch',branches);
 app.use('/catalog',catalog);
+app.use('/createFlower',catalog);
+app.use('/deleteFlower',catalog);
+app.use('/updateFlower',catalog);
 app.use('/login',indexRouter);
 app.use('/signUp',usersRouter);
-app.use('/delete',usersRouter);
-app.use('/update',usersRouter);
+app.use('/deleteUser',usersRouter);
+app.use('/updateUser',usersRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
