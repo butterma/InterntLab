@@ -1,5 +1,5 @@
 var express = require('express');
-var debug = require('debug')('lab5:index');
+var debug = require('debug')('ex5:index');
 var router = express.Router();
 const User = require('../model')("User");
 /* GET home page. */
@@ -37,4 +37,61 @@ router.post('/login', async (req, res) => {
   login=true;
   res.send("OK");
 });
+
+router.post('/signUp', async (req, res) => {
+  debug('add user');
+  if (req.body.username === undefined || req.body.username === null || req.body.username === "")
+    debug("Missing user to add!!!");
+  else if (req.body.password === undefined || req.body.password === null || req.body.password === "")
+    debug("Missing password for user to add!!!");
+  else if (req.body.passwordRe === undefined || req.body.passwordRe === null || req.body.passwordRe === "")
+    debug("Missing password repeat for user to add!!!");
+  else {
+    let user;
+    try {
+      user = await User.REQUEST({ username: req.body.username });
+    } catch (err) {
+      debug(`get user for adding failure: ${err}`);
+    }
+    if (user === null || JSON.stringify(user) == "[]")
+      try {
+        await User.CREATE([req.body.username, req.body.password, req.body.cat, 1]);
+        debug('User created:' + user);
+      } catch (err) {
+        debug("Error creating a user: " + err);
+      }
+    else
+    {
+      debug('User to be added already exists or checkin user existence failure!');
+    }
+  }
+  res.redirect('/users');
+});
+
+router.post('/delete', async (req, res) => {
+  debug('delete user');
+  if (req.body.username === undefined || req.body.username === null || req.body.username === "")
+    debug("Missing user to delete!!!");
+  else {
+    let user;
+    try {
+      user = await User.REQUEST({ username: req.body.username });
+    } catch (err) {
+      debug(`get user for delete failure: ${err}`);
+    }
+    if (user != null || JSON.stringify(user) != "[]")
+      try {
+        await User.DELETE([req.body.username, req.body.password, req.body.cat, 1]);
+        debug('User deleted:' + user);
+      } catch (err) {
+        debug("Error deleting a user: " + err);
+      }
+    else
+    {
+      debug('failure delete user!');
+    }
+  }
+  res.redirect('/users');
+});
+
 module.exports = router;

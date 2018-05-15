@@ -210,14 +210,13 @@ button:hover{
                 function deleteUser(user,pass){
                     $.ajax({
                         type: "POST",
-                        url:'http://localhost:8070/delete',
+                        url:'http://localhost:3000/delete',
                         body:'data',
                         data:{
                             'username':user,
                             'password':pass    
                         },
                         success:function(data){
-                            location.reload();
                             alert("Delete user successfully complete");
                         },
                         error:function(data){
@@ -248,7 +247,7 @@ button:hover{
                         callback: function (result) {
                             $.ajax({
                         type:"POST",
-                        url: 'http://localhost:8070/update',
+                        url: 'http://localhost:3000/update',
                         body: 'data',
                         data: {
                             'username':user,

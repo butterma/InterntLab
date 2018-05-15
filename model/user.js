@@ -1,4 +1,4 @@
-const debug = require("debug")("lab5:user-model");
+const debug = require("debug")("ex5:user-model");
 const mongo = require("mongoose");
 
 module.exports = db =>
@@ -12,16 +12,27 @@ module.exports = db =>
        // meta: { age: Number, website: String },
         created_at: Date,
         updated_at: Date
-    }, { autoIndex: false });
+    }, 
+    
+    { autoIndex: false });
+
+    schema.static.DELETE = async function(user) {
+        debug("there");
+        return this.deleteOne({
+            username: user[0],
+            password: user[1]
+        });
+    };
     
     schema.statics.CREATE = async function(user) {
+        debug("here");
         return this.create({
             username: user[0],
             password: user[1],
             category: user[2],
             activate: user[3]
         });
-    }
+    };
     
     schema.statics.REQUEST = async function() {
         // no arguments - bring all at once
@@ -62,7 +73,13 @@ module.exports = db =>
         // There is no callback - bring requested at once
         debug(`request: without callback: ${JSON.stringify(args)}`);
         return this.find(...args).exec();
-    }
+    };
+
+    schema.static.UPDATE = async function(user) {
+        return this.updateOne({
+            username: user[0]
+        });
+    };
 
     db.model('User', schema); // if model name === collection name
         debug("User model created");

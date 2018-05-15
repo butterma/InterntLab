@@ -30,7 +30,7 @@
                   if (window.confirm("Do you really want to leave?")) { 
                       $.ajax({
                       type: "POST",
-                      url: 'http://localhost:8070/branches',
+                      url: 'http://localhost:3000/branches',
                       body:'data',
                       data: {'login': '0'},
                       success: function(data){

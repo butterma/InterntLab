@@ -1,4 +1,4 @@
-const debug = require("debug")("lab5:model");
+const debug = require("debug")("ex5:model");
 const mongo = require("mongoose");
 let db = mongo.createConnection();
 (async () => {
