@@ -16,7 +16,7 @@ module.exports = db =>
         return this.create({
             name: branch[0],
             address: branch[1],
-            cateworkers_amountgory: branch[2],
+            workers_amount: branch[2],
             established_at: branch[3]
         });
     };
