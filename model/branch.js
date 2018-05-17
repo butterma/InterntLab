@@ -6,6 +6,7 @@ module.exports = db =>
     let schema = new mongo.Schema({
         name: { type: String, required: true, unique: true, index: true },
         address: { type: String, required: true },
+        telephone: String,
         workers_amount: Number,
         established_at: Date
     }, 
@@ -16,8 +17,9 @@ module.exports = db =>
         return this.create({
             name: branch[0],
             address: branch[1],
-            workers_amount: branch[2],
-            established_at: branch[3]
+            telephone: branch[2],
+            workers_amount: branch[3],
+            established_at: branch[4]
         });
     };
     

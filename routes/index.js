@@ -96,6 +96,34 @@ router.post('/deleteUser', async (req, res) => {
   res.redirect('/users');
 });
 
+router.post('/updateUser', async (req, res) => {
+  debug('update user');
+  if (req.body.username === undefined || req.body.username === null || req.body.username === "")
+    debug("Missing username to update!!!");
+  else if (req.body.cat === undefined || req.body.cat === null || req.body.cat === "")
+    debug("Missing category to update!!!");
+  else {
+    let user;
+    try {
+      user = await User.REQUEST({ username: req.body.username });
+    } catch (err) {
+      debug(`get user for adding failure: ${err}`);
+    }
+    if (user != null || JSON.stringify(user) != "[]")
+      try {
+        await User.UPDATE([req.body.username, req.body.password, req.body.cat, 1]);
+        debug('User updated:' + user);
+      } catch (err) {
+        debug("Error updating a user: " + err);
+      }
+    else
+    {
+      debug('User to be updated is not exist!');
+    }
+  }
+  res.redirect('/users');
+});
+
 router.post('/createBranch', async (req, res) => {
   debug('add branch');
   if (req.body.name === undefined || req.body.name === null || req.body.name === "")
@@ -160,20 +188,20 @@ router.post('/createFlower', async (req, res) => {
     debug("Missing flower name to add!!!");
     if (req.body.color === undefined || req.body.color === null || req.body.color === "")
     debug("Missing color to add!!!");
-    if (req.body.category === undefined || req.body.category === null || req.body.category === "")
-    debug("Missing category to add!!!");
+    if (req.body.image === undefined || req.body.image === null || req.body.image === "")
+    debug("Missing image to add!!!");
     if (req.body.cost === undefined || req.body.cost === null || req.body.cost === "")
     debug("Missing cost to add!!!");
   else {
     let flower;
     try {
-      flower = await Flower.REQUEST({ name: req.body.name, color: req.body.color, category: req.body.category, cost: req.body.cost });
+      flower = await Flower.REQUEST({ name: req.body.name, color: req.body.color, image: req.body.image, cost: req.body.cost });
     } catch (err) {
       debug(`get flower for adding failure: ${err}`);
     }
     if (flower === null || JSON.stringify(flower) == "[]")
       try {
-        await flower.CREATE([req.body.name, req.body.color, req.body.category, req.body.cost]);
+        await flower.CREATE([req.body.name, req.body.color, req.body.image, req.body.cost]);
         debug('flower created:' + flower);
       } catch (err) {
         debug("Error creating a flower: " + err);

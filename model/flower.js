@@ -6,8 +6,8 @@ module.exports = db =>
     let schema = new mongo.Schema({
         name: { type: String, required: true, unique: true, index: true },
         color: { type: String, required: true },
-        category: Number,
-        cost: Number
+        cost: Number,
+        image: String
     }, 
     
     { autoIndex: false });
@@ -16,8 +16,8 @@ module.exports = db =>
         return this.create({
             name: flower[0],
             color: flower[1],
-            category: flower[2],
-            cost: flower[3]
+            cost: flower[2],
+            image: flower[3]
         });
     };
     
