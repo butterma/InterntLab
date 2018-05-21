@@ -54,6 +54,74 @@
     -ms-transition: all 0.5s ease;
     transition: all 0.5s ease;
   }
+   /* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: rgb(39, 151, 114);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover{
+    background-color: rgb(45, 218, 218);
+}
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn,.signupbtn {
+    float: left;
+    width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+    padding: 16px;
+}
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.flex {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flex-child {
+    -webkit-box-flex: 1 1 auto;
+    -moz-box-flex:  1 1 auto;
+    -webkit-flex:  1 1 auto;
+    -ms-flex:  1 1 auto;
+    flex:  1 1 auto;
+}
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+    .cancelbtn, .signupbtn {
+        width: 100%;
+    }
+}
     </style>
 </head>
 <body class="container">
@@ -67,6 +135,50 @@
     </header>
     <main>
         <h3>Our Flowers</h3>
+        <!-- Button to open the modal -->
+<button onclick="document.getElementById('id02').style.display='block'">Add Flower</button>
+<!-- The Modal (contains the Sign Up form) -->
+<div id="id02" class="modal">
+  <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+  <form class="modal-content animate" id="add-flower-form" role="form" enctype="multipart/form-data">
+    <div class="container">
+      <label><b>Flower</b></label>
+      <input type="text" placeholder="Enter Flower Name" id="name" name="name" required>
+      <input type="text" placeholder="Enter Flower Color" id="color" name="color" required>
+      <input type="number" placeholder="Enter Flower price" id="cost" name="cost" required>
+      </br></br><input id="upload-input" type="file" name="upload-input">
+      <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="submit" class="addflowerbtn">Add</button>
+      </div>
+    </div>
+    <script>
+        $('#add-flower-form').submit(function(e){
+            e.preventDefault();
+          $.ajax({
+            type: "POST",
+            url: 'http://localhost:3000/createFlower',
+            body: 'data',
+            data:{
+              'name':$("#name").val(),
+              'color':$("#color").val(),
+              'cost':$("#cost").val(),
+              'image':$("#upload-input").val()
+            },
+            success: function(data){
+        alert("Add flower successfully complete");
+    },
+            error: function(data)
+            {
+              alert("Add flower failed");
+            }
+          });
+      });
+      </script>
+  </form>
+</div>
 <div class="list">
 
 <ul>

@@ -1,6 +1,8 @@
 var express = require('express');
 var debug = require('debug')('ex5:index');
 var router = express.Router();
+var multer  = require('multer');
+var upload = multer();
 const User = require('../model')("User");
 const Flower = require('../model')("Flower");
 const Branch = require('../model')("Branch");
@@ -100,7 +102,7 @@ router.post('/updateUser', async (req, res) => {
   debug('update user');
   if (req.body.username === undefined || req.body.username === null || req.body.username === "")
     debug("Missing username to update!!!");
-  else if (req.body.cat === undefined || req.body.cat === null || req.body.cat === "")
+  else if (req.body.category === undefined || req.body.category === null || req.body.category === "")
     debug("Missing category to update!!!");
   else {
     let user;
@@ -111,7 +113,8 @@ router.post('/updateUser', async (req, res) => {
     }
     if (user != null || JSON.stringify(user) != "[]")
       try {
-        await User.UPDATE([req.body.username, req.body.password, req.body.cat, 1]);
+        debug('user category to update: '+req.body.category);
+        await User.UPDATE([req.body.username, req.body.password, req.body.category, 1]);
         debug('User updated:' + user);
       } catch (err) {
         debug("Error updating a user: " + err);
@@ -182,7 +185,7 @@ router.post('/deleteBranch', async (req, res) => {
   res.redirect('/branches');
 });
 
-router.post('/createFlower', async (req, res) => {
+router.post('/createFlower', upload.single('image'), async (req, res) => {
   debug('add flower');
   if (req.body.name === undefined || req.body.name === null || req.body.name === "")
     debug("Missing flower name to add!!!");
@@ -201,7 +204,7 @@ router.post('/createFlower', async (req, res) => {
     }
     if (flower === null || JSON.stringify(flower) == "[]")
       try {
-        await flower.CREATE([req.body.name, req.body.color, req.body.image, req.body.cost]);
+        await Flower.CREATE([req.body.name, req.body.color, req.body.image, req.body.cost]);
         debug('flower created:' + flower);
       } catch (err) {
         debug("Error creating a flower: " + err);

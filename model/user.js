@@ -67,9 +67,7 @@ module.exports = db =>
     };
 
     schema.statics.UPDATE = async function(user) {
-        return this.updateOne({
-            username: user[0]
-        });
+        return this.updateOne({username:user[0]},{category: user[2]});
     };
 
     

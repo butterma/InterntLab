@@ -234,15 +234,15 @@ button:hover{
                         inputOptions: [
                             {
                                 text: 'Manager',
-                                value: '0',
-                            },
-                            {
-                                text: 'Worker',
                                 value: '1',
                             },
                             {
-                                text: 'Consumer',
+                                text: 'Worker',
                                 value: '2',
+                            },
+                            {
+                                text: 'Consumer',
+                                value: '3',
                             }
                         ],
                         callback: function (result) {
@@ -253,7 +253,7 @@ button:hover{
                         data: {
                             'username':user,
                             'password':pass,
-                            'cat':result[0]
+                            'category':result[0]
                         },
                         success:function(data){
                             location.reload();
