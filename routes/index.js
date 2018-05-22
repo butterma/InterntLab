@@ -2,10 +2,11 @@ var express = require('express');
 var debug = require('debug')('ex5:index');
 var router = express.Router();
 var multer  = require('multer');
-var upload = multer();
+var upload = multer({ dest: 'uploads/' });
 const User = require('../model')("User");
 const Flower = require('../model')("Flower");
 const Branch = require('../model')("Branch");
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
  if(req.query.login=="true")  
@@ -198,13 +199,13 @@ router.post('/createFlower', upload.single('image'), async (req, res) => {
   else {
     let flower;
     try {
-      flower = await Flower.REQUEST({ name: req.body.name, color: req.body.color, image: req.body.image, cost: req.body.cost });
+      flower = await Flower.REQUEST({ name: req.body.name, color: req.body.color, cost: req.body.cost, image: req.body.image });
     } catch (err) {
       debug(`get flower for adding failure: ${err}`);
     }
     if (flower === null || JSON.stringify(flower) == "[]")
       try {
-        await Flower.CREATE([req.body.name, req.body.color, req.body.image, req.body.cost]);
+        await Flower.CREATE([req.body.name, req.body.color, req.body.cost, req.body.image]);
         debug('flower created:' + flower);
       } catch (err) {
         debug("Error creating a flower: " + err);
