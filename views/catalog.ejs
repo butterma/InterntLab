@@ -150,31 +150,24 @@ button:hover{
       <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
       <div class="clearfix">
-        <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="button" onclick="$('#id02').attr('display', 'none')" class="cancelbtn">Cancel</button>
         <button type="submit" class="addflowerbtn">Add</button>
       </div>
     </div>
     <script>
-        $('#add-flower-form').submit(function(e){
+        $('#add-flower-form').submit(async e=>{
             e.preventDefault();
-          $.ajax({
-            type: "POST",
-            url: 'http://localhost:3000/createFlower',
-            body: 'data',
-            data:{
-              'name':$("#name").val(),
-              'color':$("#color").val(),
-              'cost':$("#cost").val(),
-              'image':$("#upload-input").val()
-            },
-            success: function(data){
-        alert("Add flower successfully complete");
-    },
-            error: function(data)
-            {
+           let formData=new FormData();
+           formData.append('name',$("#name").val());
+           formData.append('color',$("#color").val());
+           formData.append('cost',$("#cost").val());
+           formData.append('image',$("#upload-input").get(0).files[0]);
+           try {
+                await fetch('http://localhost:3000/createFlower', { method: "POST", body: formData});
+                alert("Add flower successfully complete");
+           } catch (error) {
               alert("Add flower failed");
             }
-          });
       });
       </script>
   </form>

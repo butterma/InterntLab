@@ -2,7 +2,7 @@ var express = require('express');
 var debug = require('debug')('ex5:index');
 var router = express.Router();
 var multer  = require('multer');
-var upload = multer({ dest: 'uploads/' });
+var upload = multer({ dest: './uploads/' });
 const User = require('../model')("User");
 const Flower = require('../model')("Flower");
 const Branch = require('../model')("Branch");
@@ -188,6 +188,7 @@ router.post('/deleteBranch', async (req, res) => {
 
 router.post('/createFlower', upload.single('image'), async (req, res) => {
   debug('add flower');
+  console.log(req);
   if (req.body.name === undefined || req.body.name === null || req.body.name === "")
     debug("Missing flower name to add!!!");
     if (req.body.color === undefined || req.body.color === null || req.body.color === "")

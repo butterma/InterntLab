@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var branches = require('./routes/branches');
 var catalog = require('./routes/catalog');
-var contact=require('./routes/catalog');
+var contact=require('./routes/contact');
 
 var app = express();
 var login=false;
