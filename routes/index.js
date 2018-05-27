@@ -2,7 +2,11 @@ var express = require('express');
 var debug = require('debug')('ex5:index');
 var router = express.Router();
 var multer  = require('multer');
-var upload = multer({ dest: './uploads/' });
+var storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: function (re, file, cb) {
+    cb(null,'flower -' + Date.now() +'.' + file.mimetype.slice(6))}})
+var upload = multer({ storage: storage });
 const User = require('../model')("User");
 const Flower = require('../model')("Flower");
 const Branch = require('../model')("Branch");
@@ -191,11 +195,9 @@ router.post('/createFlower', upload.single('image'), async (req, res) => {
   console.log(req);
   if (req.body.name === undefined || req.body.name === null || req.body.name === "")
     debug("Missing flower name to add!!!");
-    if (req.body.color === undefined || req.body.color === null || req.body.color === "")
+  else if (req.body.color === undefined || req.body.color === null || req.body.color === "")
     debug("Missing color to add!!!");
-    if (req.body.image === undefined || req.body.image === null || req.body.image === "")
-    debug("Missing image to add!!!");
-    if (req.body.cost === undefined || req.body.cost === null || req.body.cost === "")
+  else if (req.body.cost === undefined || req.body.cost === null || req.body.cost === "")
     debug("Missing cost to add!!!");
   else {
     let flower;
