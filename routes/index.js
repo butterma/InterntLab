@@ -192,7 +192,6 @@ router.post('/deleteBranch', async (req, res) => {
 
 router.post('/createFlower', upload.single('image'), async (req, res) => {
   debug('add flower');
-  console.log(req);
   if (req.body.name === undefined || req.body.name === null || req.body.name === "")
     debug("Missing flower name to add!!!");
   else if (req.body.color === undefined || req.body.color === null || req.body.color === "")
@@ -202,13 +201,13 @@ router.post('/createFlower', upload.single('image'), async (req, res) => {
   else {
     let flower;
     try {
-      flower = await Flower.REQUEST({ name: req.body.name, color: req.body.color, cost: req.body.cost, image: req.body.image });
+      flower = await Flower.REQUEST({ name: req.body.name, color: req.body.color, cost: req.body.cost, image: req.file.path });
     } catch (err) {
       debug(`get flower for adding failure: ${err}`);
     }
     if (flower === null || JSON.stringify(flower) == "[]")
       try {
-        await Flower.CREATE([req.body.name, req.body.color, req.body.cost, req.body.image]);
+        await Flower.CREATE([req.body.name, req.body.color, req.body.cost, req.file.path]);
         debug('flower created:' + flower);
       } catch (err) {
         debug("Error creating a flower: " + err);
