@@ -6,10 +6,10 @@ const Branch = require('../model')("Branch");
 router.get('/', async (req, res) => {
   debug('get branches');
   try {
-     if(req.query.login=="true")
-      res.render('branches', {title: 'Branch List', branches: await Branch.REQUEST(),login:true});
+     if(req.query.user==null)
+      res.render('branches', {title: 'Branch List', branches: await Branch.REQUEST(),login:false,stam:false});
       else
-      res.render('branches', {title: 'Branch List', branches: await Branch.REQUEST(),login:false});
+      res.render('branches', {title: 'Branch List', branches: await Branch.REQUEST(),login:true,stam:true});
   } catch (err) { /*debug(`get branches failure: ${err}`);*/ }
 });
 

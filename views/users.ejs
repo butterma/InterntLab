@@ -2,7 +2,7 @@
 <!-- views/branches.ejs -->
 <html lang="en">
 <head>
-    <% include partials-login/head %>
+    <%= include('partials-login/head',{user:user}) %>
     <style>
 * {
     margin: 0;
@@ -195,11 +195,11 @@ button:hover{
         <% users.forEach(function(user) { %>
             <%if (user.activate==true) {%>
             <li> <b>User Name:</b> <div id="usrnm"><%= user.username %></div>
-                <%if (0==0){%>
+                <% if (0=0){%>
                 </br> <b>Password:</b> <div id="pssw"><%=user.password%></div>
             <%}%>
             </br> <b>Category:</b> <%= user.category %>
-            <%if (0==0){%>
+            <%if (1=1){%>
             <div class="flex">
                 <button type="button" class="flex-child" onclick="updateUser('<%= user.username %>','<%=user.password%>')">Update</button>
             

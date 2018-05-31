@@ -3,9 +3,9 @@ var debug = require('debug')('ex5:index');
 var router = express.Router();
 var multer  = require('multer');
 var storage = multer.diskStorage({
-  destination: './uploads/',
+  destination: './public/uploads/',
   filename: function (re, file, cb) {
-    cb(null,'flower -' + Date.now() +'.' + file.mimetype.slice(6))}})
+    cb(null,'flower' + Date.now() +'.' + file.mimetype.slice(6))}})
 var upload = multer({ storage: storage });
 const User = require('../model')("User");
 const Flower = require('../model')("Flower");
@@ -13,10 +13,13 @@ const Branch = require('../model')("Branch");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
- if(req.query.login=="true")  
-    res.render('index', {login:true,title: 'Express'});
+ if(req.query.user==null){
+  res.render('index',{login:false,title:'Express'});
+ }
   else
-    res.render('index',{login:false,title:'Express'});
+  debug("login=true")  
+  res.render('index', {login:true,title: req.query.user});
+    
 });
 
 router.post('/login', async (req, res) => {
@@ -201,13 +204,13 @@ router.post('/createFlower', upload.single('image'), async (req, res) => {
   else {
     let flower;
     try {
-      flower = await Flower.REQUEST({ name: req.body.name, color: req.body.color, cost: req.body.cost, image: req.file.path });
+      flower = await Flower.REQUEST({ name: req.body.name, color: req.body.color, cost: req.body.cost, image: req.file.path.slice(6)});
     } catch (err) {
       debug(`get flower for adding failure: ${err}`);
     }
     if (flower === null || JSON.stringify(flower) == "[]")
       try {
-        await Flower.CREATE([req.body.name, req.body.color, req.body.cost, req.file.path]);
+        await Flower.CREATE([req.body.name, req.body.color, req.body.cost, req.file.path.slice(6)]);
         debug('flower created:' + flower);
       } catch (err) {
         debug("Error creating a flower: " + err);
