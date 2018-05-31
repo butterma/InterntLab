@@ -4,19 +4,16 @@ var router = express.Router();
 const User = require('../model')("User");
 /* GET users listing. */
 router.get('/', async (req, res) => {
-  debug('get users');
   try {
      if(req.query.user==null)
      {
-      debug('get users');
-      res.render('users', {title: 'User List', users: await User.REQUEST(),login:false,user:null});
-      debug('get users');
+      res.render('users');//, {title: 'User List', users: await User.REQUEST(),login:false,user:null});
      }
       else
       {
         debug('get users');
-        res.render('users', {title: 'User List', users: await User.REQUEST(),login:true,user:req.query.user});
-        debug('get users');
+        let tmp=await User.REQUEST({username:req.query.user});
+        res.render('users', {title: 'User List', users: await User.REQUEST(),login:true,user:tmp[0].username,category: tmp[0].category});
       }
   } catch (err) { /*debug(`get users failure: ${err}`);*/ }
 });

@@ -16,7 +16,7 @@
           <li class="active"><a href="#">Home</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/catalog/?user=<%=login%>">Catalog</a></li>
-          <li><a href="/users/?user=<%=title%>">Users Managment</a>/a></li>
+          <li><a href="/users/?user=<%=user%>">Users Managment</a>/a></li>
           <li><a href="/branches/?user=<%=login%>">Branches Managment</a></li>        
           <li><a href="/contact">Contact Us</a></li>
         </ul>
@@ -30,11 +30,11 @@
                   if (window.confirm("Do you really want to leave?")) { 
                       $.ajax({
                       type: "POST",
-                      url: 'http://localhost:3000/',
+                      url: 'http://localhost:3000/logout',
                       body:'data',
                       data: {'login': '0'},
                       success: function(data){
-                        location.reload();
+                        location="/";
                        } ,              
                       });
                   }

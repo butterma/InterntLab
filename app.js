@@ -38,6 +38,7 @@ app.use('/signUp',usersRouter);
 app.use('/deleteUser',usersRouter);
 app.use('/updateUser',usersRouter);
 app.use('/contact',contact);
+app.use('/logout',indexRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -2,7 +2,7 @@
 <!-- views/branches.ejs -->
 <html lang="en">
 <head>
-    <%= include('partials-login/head',{user:user}) %>
+    <%- include('partials-login/head',{user:user}) %>
     <style>
 * {
     margin: 0;
@@ -127,17 +127,18 @@ button:hover{
 <body class="container">
     <header>  
             <% if(!login){%>
-                <% include partials-login/header %>          
+                <% -include ('partials-login/header',{user:user}) %>          
             <%} else{ %>
-                <%include partials-logout/header %>           
+                <%- include ('partials-logout/header',{user:user}) %>           
                 <%}%>
            
     </header>
     <main>
         <h3>Users</h3>
         <!-- Button to open the modal -->
+        <%if (category===1||category===2){%>
 <button onclick="document.getElementById('id01').style.display='block'">Add User</button>
-
+            <%}%>
 <!-- The Modal (contains the Sign Up form) -->
 <div id="id01" class="modal">
   <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -152,9 +153,9 @@ button:hover{
       <label><b>Repeat Password</b></label>
       <input type="password" placeholder="Repeat Password" id="psw-repeat" name="psw-repeat" required>
       <label><b>Choose Category</b></label></br>
-    
-        <input type="radio"  name="category" value="1">Worker            
-    
+        <%if(category===1){%>
+      <input type="radio"  name="category" value="1">Worker            
+    <%}%>
       <input type="radio"  name="category" value="2">Customer </br></br>
       <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
@@ -195,11 +196,11 @@ button:hover{
         <% users.forEach(function(user) { %>
             <%if (user.activate==true) {%>
             <li> <b>User Name:</b> <div id="usrnm"><%= user.username %></div>
-                <% if (0=0){%>
+                <% if (category===1){%>
                 </br> <b>Password:</b> <div id="pssw"><%=user.password%></div>
             <%}%>
             </br> <b>Category:</b> <%= user.category %>
-            <%if (1=1){%>
+            <%if (category===1){%>
             <div class="flex">
                 <button type="button" class="flex-child" onclick="updateUser('<%= user.username %>','<%=user.password%>')">Update</button>
             
@@ -259,7 +260,8 @@ button:hover{
                             location.reload();
                             alert("Update user successfully complete");
                         },
-                        error: function(data){
+                        error: function(err,data){
+                            console.log(JSON.stringify(err) + ":" + JSON.stringify(data));
                             alert("Update user failed");
                         }
                     })

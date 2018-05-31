@@ -249,4 +249,8 @@ router.post('/deleteFlower', async (req, res) => {
   res.redirect('/flowers');
 });
 
+router.post('/logout',async(req,res)=>{
+  debug("in logout post");
+  res.render('index',{login:false});
+});
 module.exports = router;
