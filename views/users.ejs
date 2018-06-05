@@ -129,7 +129,7 @@ button:hover{
             <% if(!login){%>
                 <% -include ('partials-login/header',{user:user}) %>          
             <%} else{ %>
-                <%- include ('partials-logout/header',{user:user}) %>           
+                <% -include ('partials-logout/header',{user:user}) %>           
                 <%}%>
            
     </header>

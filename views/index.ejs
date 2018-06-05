@@ -6,14 +6,14 @@
 </head>
 <body class="container">
     <header>  
-        <% if(login){%>
-            <% include partials-logout/header %>          
-        <%} else{ %>
-            <%include partials-login/header %>           
+            <% if (!login){%>
+                <% include partials-login/header %>          
+            <%} else { %>
+                <% include partials-logout/header %>          
             <%}%>                
     </header>
     <main>
-       <img src="https://s-media-cache-ak0.pinimg.com/avatars/zer4u_1392295375_280.jpg"/>
+       <img src="/flower.jpg" height="100"/>
     </main>
     <footer>
         <% include partials-login/footer %>

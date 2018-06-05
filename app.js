@@ -12,6 +12,7 @@ var contact=require('./routes/contact');
 
 var app = express();
 var login=false;
+var user = "";
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

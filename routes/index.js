@@ -12,14 +12,16 @@ const Flower = require('../model')("Flower");
 const Branch = require('../model')("Branch");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', async(req, res) => {
  if(req.query.user==null){
+  debug("login=false"); 
   res.render('index',{login:false,title:'Express'});
  }
   else
-  debug("login=true")  
-  res.render('index', {login:true,title: req.query.user});
-    
+  {
+    debug("login=true");  
+    res.render('index', {login:true,title: req.query.user, user:req.query.user});
+  }    
 });
 
 router.post('/login', async (req, res) => {
@@ -46,7 +48,7 @@ router.post('/login', async (req, res) => {
       return;
   } 
   debug("login successful");
-  login=true;
+  
   res.send("OK");
 });
 

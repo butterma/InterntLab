@@ -58,11 +58,11 @@
 </head>
 <body class="container">
     <header>  
-            <% if(!login){%>
-                <% include partials-login/header %>          
-            <%} else{ %>
-                <%include partials-logout/header %>           
-                <%}%>
+        <% if(!login){%>
+          <% -include ('partials-login/header',{user:user}) %>          
+      <%} else{ %>
+          <% -include ('partials-logout/header',{user:user}) %>           
+          <%}%>
            
     </header>
     <main>
