@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<!-- views/branches.ejs -->
+<!-- views/catalog.ejs -->
 <html lang="en">
 <head>
-    <% include partials-login/head %>
+        <%- include('partials-login/head',{user:user}) %>
     <style>
 * {
     margin: 0;
@@ -127,9 +127,9 @@ button:hover{
 <body class="container">
     <header>  
             <% if(!login){%>
-                <% include partials-login/header %>          
+                <% -include ('partials-login/header',{user:user}) %>          
             <%} else{ %>
-                <%include partials-logout/header %>           
+                <% -include ('partials-logout/header',{user:user}) %>           
                 <%}%>
            
     </header>

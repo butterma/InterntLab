@@ -5,13 +5,18 @@ const Flower = require('../model')("Flower");
 
 /* GET catalog listing. */
 router.get('/', async (req, res) => {
-  debug('get catalog');
   try {
-     if(req.query.user==null)
-      res.render('catalog', {title: 'Flower List', catalog: await Flower.REQUEST(),login:false, user:false});
-      else
-      res.render('catalog', {title: 'Flower List', catalog: await Flower.REQUEST(),login:true, user:true});
-  } catch (err) { /*debug(`get catalog failure: ${err}`);*/ }
+    if(req.query.user==null)
+    {
+     res.render('catalog', {title: 'Flower List', catalog: await Flower.REQUEST(),login:false,user:null});
+    }
+     else
+     {
+       debug('get catalog');
+       let tmp = await User.REQUEST({username:req.query.user});
+       res.render('catalog', {title: 'Flower List', catalog: await Flower.REQUEST(), login:true, user:tmp[0].username, category: tmp[0].category});
+     }
+ } catch (err) {  }
 });
 
 module.exports = router;
