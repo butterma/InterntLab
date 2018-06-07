@@ -2,7 +2,7 @@ var express = require('express');
 var debug = require('debug')('ex5:catalog');
 var router = express.Router();
 const Flower = require('../model')("Flower");
-
+const User=require('../model')("User");
 /* GET catalog listing. */
 router.get('/', async (req, res) => {
   try {

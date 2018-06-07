@@ -2,7 +2,7 @@ var express = require('express');
 var debug = require('debug')('ex5:branches');
 var router = express.Router();
 const Branch = require('../model')("Branch");
-
+const User=require("../model")("User");
 /* GET branches listing. */
 router.get('/', async (req, res) => {
   try {
