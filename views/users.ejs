@@ -168,8 +168,8 @@ button:hover{
         $('#add-user-form').submit(function(e){
             e.preventDefault();
           $.ajax({
-            type: "POST",
-            url: 'http://localhost:3000/signUp',
+            type: "POST", 
+            url: 'http://localhost:3000/signUp/?'+ $.param({ user: "<%=user%>" }),
             body: 'data',
             data:{
               'username':$("#username").val(),
@@ -212,20 +212,20 @@ button:hover{
                 function deleteUser(currentUser,pass){
                     $.ajax({
                         type: "POST",
-                        url:"http://localhost:3000/deleteUser",
+                        url:'http://localhost:3000/deleteUser/?'+ $.param({ user: "<%=user%>" }),
                         body:'data',
                         data:{
-                            'username':user,
+                            'username':currentUser,
                             'password':pass    
                         },
                         success:function(data){
-                            location.reload();
+                            
                             alert("Delete user successfully complete");
+                            location.reload();
                         },
                         error: function(err, data)
-                      {
-                        console.log(JSON.stringify(err) + ":" + JSON.stringify(data));
-                            alert("Delete user failed "+JSON.stringify(err) + ":" + JSON.stringify(data));
+                        {
+                            alert("Delete user failed ");
                         }
                     })
                 }
@@ -253,7 +253,7 @@ button:hover{
                         callback: function (result) {
                             $.ajax({
                         type:"POST",
-                        url: 'http://localhost:3000/updateUser',
+                        url: 'http://localhost:3000/updateUser/?'+ $.param({ user: "<%=user%>" }),
                         body: 'data',
                         data: {
                             'username':currentUser,
@@ -261,8 +261,8 @@ button:hover{
                             'category':result[0]
                         },
                         success:function(data){
-                            location.reload();
                             alert("Update user successfully complete");
+                            location.reload();
                         },
                         error: function(err,data){
                             console.log(JSON.stringify(err) + ":" + JSON.stringify(data));

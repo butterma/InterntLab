@@ -18,8 +18,9 @@ router.get('/', async(req, res) => {
  }
   else
   {
-    debug("login=true");  
-    res.render('index', {login:true,title: req.query.user, user:req.query.user});
+    debug("login=true"); 
+    let tmp = await User.REQUEST({username:req.query.user});    
+    res.render('index', {login:true, user:tmp[0].username, category: tmp[0].category});
   }    
 });
 
@@ -75,7 +76,8 @@ router.post('/signUp', async (req, res) => {
       try {
         debug("req category: "+req.body.cat);
         await User.CREATE([req.body.username, req.body.password, req.body.cat, 1]);
-        debug('User created:' + user);
+        debug('User created:' +JSON.stringify(req.body.username));
+        debug('by: ' +JSON.stringify(req.query.user));
       } catch (err) {
         debug("Error creating a user: " + err);
       }
@@ -98,7 +100,7 @@ router.post('/deleteUser', async (req, res) => {
     } catch (err) {
       debug(`get user for delete failure: ${err}`);
     }
-    if (currentUser != null || JSON.stringify(currentUser) != "[]")
+    if (currentUser != null && JSON.stringify(currentUser) != "[]")
       try {
         await User.DELETE([req.body.username, req.body.password, req.body.cat, 1]);
         debug('User deleted:' + currentUser);

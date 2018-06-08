@@ -7,9 +7,9 @@ router.get('/', async(req, res)=> {
    try{
    if(req.query.user==null)
     res.render('about',{title:'about',login:false,user:null});  
-    else{
-      let user=await User.REQUEST({username:req.query.user});
-    res.render('about',{title:'about',login:true,user:user});
+    else{      let user=await User.REQUEST({username:req.query.user});
+      let tmp = await User.REQUEST({username:req.query.user});    
+      res.render('about',{title:'about',login:true, user:tmp[0].username, category: tmp[0].category});
     }
   }catch(err){}
 
