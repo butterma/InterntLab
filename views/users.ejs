@@ -154,7 +154,9 @@ button:hover{
       <input type="password" placeholder="Repeat Password" id="psw-repeat" name="psw-repeat" required>
       <label><b>Choose Category</b></label></br>
         <%if(category===1){%>
+      <input type="radio"  name="category" value="2"/>Worker            
     <%}%>
+      <input type="radio"  name="category" value="3"/>Customer </br></br>
       <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
       <div class="clearfix">
@@ -173,10 +175,11 @@ button:hover{
               'username':$("#username").val(),
               'password': $("#psw1").val(),
               'passwordRe':$("#psw-repeat").val(),
-              'cat':$("#category").val()
+              'cat':$('input[name=category]:checked','#id01').val()
             },
             success: function(data){
         alert("Add user successfully complete");
+        document.getElementById('id01').style.display='none';
     },
             error: function(data)
             {
@@ -191,26 +194,34 @@ button:hover{
 <div class="list">
 
 <ul id="myList">
+        <% users.forEach(function(currentUser) { %>
+            <%if (currentUser.activate==true) {%>
+            <li> <b>User Name:</b> <div id="usrnm"><%= currentUser.username %></div>
                 <% if (category===1){%>
+                </br> <b>Password:</b> <div id="pssw"><%=currentUser.password%></div>
             <%}%>
+            </br> <b>Category:</b> <%= currentUser.category %>
             <%if (category===1){%>
             <div class="flex">
+                <button type="button" class="flex-child" onclick="updateUser('<%= currentUser.username %>','<%=currentUser.password%>')">Update</button>
             
+                <button type="button" class="flex-child" onclick="deleteUser('<%= currentUser.username %>','<%=currentUser.password%>')">Delete</button>
             </div>
             <%}%>
             <script>
+                function deleteUser(currentUser,pass){
                     $.ajax({
                         type: "POST",
+                        url:"http://localhost:3000/users/deleteUser",
                         body:'data',
                         data:{
                             'username':user,
                             'password':pass    
                         },
                         success:function(data){
+                            location.reload();
                             alert("Delete user successfully complete");
                         },
-                        error:function(data){
-                            alert("Delete user failed");
                         error: function(err, data)
                       {
                         console.log(JSON.stringify(err) + ":" + JSON.stringify(data));
@@ -219,6 +230,7 @@ button:hover{
                     })
                 }
 
+                function updateUser(currentUser,pass){
 
                     var popUpList = $('<div><input type="radio">Manager<br><input type="radio">Worker<br><input type="radio">Consumer</div>');
                     bootbox.prompt({
@@ -241,10 +253,10 @@ button:hover{
                         callback: function (result) {
                             $.ajax({
                         type:"POST",
-                        url: 'http://localhost:3000/updateUser',
                         url: 'http://localhost:3000/users/updateUser',
                         body: 'data',
                         data: {
+                            'username':currentUser,
                             'password':pass,
                             'category':result[0]
                         },
@@ -254,7 +266,6 @@ button:hover{
                         },
                         error: function(err,data){
                             console.log(JSON.stringify(err) + ":" + JSON.stringify(data));
-                            alert("Update user failed");
                             alert("Update user failed"+JSON.stringify(err) + ":" + JSON.stringify(data));
                         }
                     })
