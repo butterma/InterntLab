@@ -163,7 +163,8 @@ button:hover{
            formData.append('cost',$("#cost").val());
            formData.append('image',$("#upload-input").get(0).files[0]);
            try {
-                await fetch('http://localhost:3000/createFlower/?'+ $.param({ user: "<%=user%>" }), { method: "POST", body: formData});
+                await fetch('http://localhost:3000/catalog/createFlower/?'+ $.param({ user: "<%=user%>" }), 
+                { method: "POST", body: formData});
                 alert("Add flower successfully complete");
                 document.getElementById('id02').style.display='none';
                 location.reload();

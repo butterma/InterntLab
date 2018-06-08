@@ -169,7 +169,7 @@ button:hover{
             e.preventDefault();
           $.ajax({
             type: "POST", 
-            url: 'http://localhost:3000/signUp/?'+ $.param({ user: "<%=user%>" }),
+            url: 'http://localhost:3000/users/signUp/?'+ $.param({ user: "<%=user%>" }),
             body: 'data',
             data:{
               'username':$("#username").val(),
@@ -212,7 +212,7 @@ button:hover{
                 function deleteUser(currentUser,pass){
                     $.ajax({
                         type: "POST",
-                        url:'http://localhost:3000/deleteUser/?'+ $.param({ user: "<%=user%>" }),
+                        url:'http://localhost:3000/users/deleteUser/?'+ $.param({ user: "<%=user%>" }),
                         body:'data',
                         data:{
                             'username':currentUser,
@@ -253,7 +253,7 @@ button:hover{
                         callback: function (result) {
                             $.ajax({
                         type:"POST",
-                        url: 'http://localhost:3000/updateUser/?'+ $.param({ user: "<%=user%>" }),
+                        url: 'http://localhost:3000/users/updateUser/?'+ $.param({ user: "<%=user%>" }),
                         body: 'data',
                         data: {
                             'username':currentUser,
