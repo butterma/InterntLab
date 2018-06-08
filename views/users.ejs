@@ -212,7 +212,7 @@ button:hover{
                 function deleteUser(currentUser,pass){
                     $.ajax({
                         type: "POST",
-                        url:"http://localhost:3000/users/deleteUser",
+                        url:"http://localhost:3000/deleteUser",
                         body:'data',
                         data:{
                             'username':user,
@@ -253,7 +253,7 @@ button:hover{
                         callback: function (result) {
                             $.ajax({
                         type:"POST",
-                        url: 'http://localhost:3000/users/updateUser',
+                        url: 'http://localhost:3000/updateUser',
                         body: 'data',
                         data: {
                             'username':currentUser,
