@@ -163,7 +163,7 @@ button:hover{
            formData.append('cost',$("#cost").val());
            formData.append('image',$("#upload-input").get(0).files[0]);
            try {
-                await fetch('http://localhost:3000/createFlower', { method: "POST", body: formData});
+                await fetch('http://localhost:3000/catalog/createFlower', { method: "POST", body: formData});
                 alert("Add flower successfully complete");
            } catch (error) {
               alert("Add flower failed");

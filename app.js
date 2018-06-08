@@ -9,10 +9,10 @@ var usersRouter = require('./routes/users');
 var branches = require('./routes/branches');
 var catalog = require('./routes/catalog');
 var contact=require('./routes/contact');
-
 var app = express();
 var login=false;
 var user = "";
+var currentUser = "";
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,17 +27,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/branches',branches);
-app.use('/createBranch',branches);
-app.use('/deleteBranch',branches);
-app.use('/updateBranch',branches);
+app.use('/branches/createBranch',branches);
+app.use('/branches/deleteBranch',branches);
 app.use('/catalog',catalog);
-app.use('/createFlower',catalog);
-app.use('/deleteFlower',catalog);
-app.use('/updateFlower',catalog);
+app.use('/catalog/createFlower',catalog);
+app.use('/catalog/deleteFlower',catalog);
 app.use('/login',indexRouter);
 app.use('/signUp',usersRouter);
-app.use('/deleteUser',usersRouter);
-app.use('/updateUser',usersRouter);
+app.use('/users/deleteUser',usersRouter);
+app.use('/users/updateUser',usersRouter);
 app.use('/contact',contact);
 app.use('/logout',indexRouter);
 // catch 404 and forward to error handler
