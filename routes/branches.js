@@ -21,5 +21,4 @@ router.get('/', async (req, res) => {
   } catch (err) { /*debug(`get branches failure: ${err}`);*/ }
 });
 
-
 module.exports = router;
