@@ -32,14 +32,14 @@ input[type=submit]:hover {
 }
 
 /* Add a background color and some padding around the form */
-.container {
+.contact {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
 }
     </style>
 </head>
-<body class="container">
+<body class="contact">
     <header>  
             <% if(!login){%>
                 <% include partials-login/header %>          
@@ -49,8 +49,8 @@ input[type=submit]:hover {
            
     </header>
     <main>
-        <div class="container">
-            <form action="localhost:3000/index">
+        <div class="contact">
+            <form action="localhost:3000/index" id="contact-form">
           
               <label for="fname">First Name</label>
               <input type="text" id="fname" name="firstname" placeholder="Your name..">
@@ -307,10 +307,18 @@ input[type=submit]:hover {
               <label for="subject">Subject</label>
               <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
           
-              <input type="submit" value="Submit">
+              <input type="submit" value="Submit" class="contact">
           
             </form>
           </div>
+          <script>$('#contact-form').submit(async e=>{
+                e.preventDefault();
+                if ($("#fname").val()!= "" && $("#lname").val()!= "" && $("#country").val()!= "" && $("#subject").val()!= "" )
+                alert("Thanks for your message!\nour team will contact you soon.");
+                else
+                alert("One or more of the fields is missing.");
+          });
+          </script>
 </main>
 <footer>
     <% include partials-login/footer %>
