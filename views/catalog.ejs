@@ -165,6 +165,7 @@ button:hover{
            try {
                 await fetch('http://localhost:3000/catalog/createFlower', { method: "POST", body: formData});
                 alert("Add flower successfully complete");
+                document.getElementById('id02').style.display='none';
            } catch (error) {
               alert("Add flower failed");
             }
